@@ -1,7 +1,7 @@
 blueprint:
   name: Alternative Auto Updates
   description: >-
-    This will automatically update the target update entities.
+    This will automatically update the target update entity.
 
 
     But it will not do the latest and greatest.
@@ -28,6 +28,7 @@ blueprint:
         entity:
           filter:
             domain: update
+            # This is currently being marked as incorrect due to a bug in the extention https://github.com/keesschollaart81/vscode-home-assistant/pull/2874
             supported_features: [update.UpdateEntityFeature.SPECIFIC_VERSION]
     pre_update_action:
       name: Actions that should run before updating
