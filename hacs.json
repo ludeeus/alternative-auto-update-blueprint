@@ -1,0 +1,6 @@
+{
+    "name": "Alternative Auto Updates",
+    "blueprint_type": "automation",
+    "filename": "alternative-auto-updates.yaml",
+    "homeassistant": "2023.6.0"
+}
