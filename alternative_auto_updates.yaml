@@ -1,0 +1,103 @@
+blueprint:
+  name: Alternative Auto Updates
+  description: >-
+    This will automatically update the target update entities.
+
+
+    But it will not do the latest and greatest.
+    Instead it will install the latest patch version when a new minor version is realeased.
+    When this trigger on a version change that does not result in an update, the update will be hidden so you do not see a notification for it in the UI.
+
+
+    There are some exceptions:
+      - This will install the latest patch version if you are currently on the same minor version
+      - This will install all beta versions if you are on beta currently or the latest version is beta
+      - This will install all dev versions if you are on dev currently or the latest version is dev
+
+
+    Note that this will only work for update entities that supports installing a spesific version.
+  domain: automation
+  author: ludeeus
+  homeassistant:
+    min_version: "2023.6.0"
+  input:
+    update_entity:
+      name: Update entity
+      description: The update entity that should be controlled
+      selector:
+        entity:
+          filter:
+            domain: update
+            supported_features: [update.UpdateEntityFeature.SPECIFIC_VERSION]
+    pre_update_action:
+      name: Actions that should run before updating
+      description: Add in any optional actions that would run before updating.
+      default: []
+      selector:
+        action:
+    preform_backup:
+      name: Preform backup before updating.
+      description: Use the backup feature of the update entity to preform a backup before updating.
+      default: true
+      selector:
+        boolean:
+
+mode: queued
+
+trigger:
+  - platform: state
+    entity_id: !input update_entity
+    attribute: latest_version
+
+variables:
+  should_update: >-
+    {% set cv = version(state_attr(trigger.to_state.entity_id, 'installed_version')) %}
+    {% set lv = version(state_attr(trigger.to_state.entity_id, 'latest_version')) %}
+    {{
+      (
+        (
+          cv.dev or lv.dev
+        ) 
+        or
+        (
+          cv.beta or lv.beta
+        )
+      )
+      or
+      (
+        (
+          version(int(cv.major) + 1) == int(lv.major)
+          and lv.minor > (1 if lv.strategy.value == "CalVer" else 0)
+        )
+        or
+        (
+          cv.major == lv.major
+          and
+          (
+            lv.minor > version(cv.minor | int + 1) 
+            or lv.minor == cv.minor
+          )
+        )
+        and lv.patch > cv.patch 
+      )
+    }}
+
+action:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: "{{  should_update }}"
+      sequence: !input pre_update_action
+    default:
+      - service: update.skip
+        target:
+          entity_id: "{{trigger.to_state.entity_id}}"
+
+  - if: 
+    - condition: template
+      value_template: "{{  should_update }}"
+    then:
+      - service: update.install
+        data:
+          backup: "{{preform_backup}}"
+          version: "{{trigger.from_state.attributes.latest_version}}"
