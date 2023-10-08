@@ -10,9 +10,9 @@ When this trigger on a version change that does not result in an update, the upd
 
 
 There are some exceptions:
-    - This will install the latest patch version if you are currently on the same minor version
-    - This will install all beta versions if you are on beta currently or the latest version is beta
-    - This will install all dev versions if you are on dev currently or the latest version is dev
+- This will install the latest patch version if you are currently on the same minor version
+- This will install all beta versions if you are on beta currently or the latest version is beta
+- This will install all dev versions if you are on dev currently or the latest version is dev
 
 
 Note that this will only work for update entities that supports installing a spesific version.
