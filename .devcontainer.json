@@ -1,0 +1,16 @@
+{
+	"name": "ludeeus/alternative-auto-update-blueprint",
+	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"keesschollaart.vscode-home-assistant"
+			],
+			"settings": {
+				"files.associations": {
+					"*.yaml": "home-assistant"
+				}
+			}
+		}
+	}
+}
