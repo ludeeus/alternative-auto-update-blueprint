@@ -16,3 +16,20 @@ There are some exceptions:
 
 
 Note that this will only work for update entities that supports installing a spesific version.
+
+
+### Import directly in Home Assistant
+
+[Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2Fludeeus%2Falternative-auto-update-blueprint%2Fmain%2Falternative_auto_updates.yaml)
+
+
+<details>
+<summary>
+🤫
+</summary>
+
+### Download with HACS
+
+[Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/redirect/hacs_repository/?owner=ludeeus&repository=alternative-auto-update-blueprint&category=blueprint)
+
+</details>
