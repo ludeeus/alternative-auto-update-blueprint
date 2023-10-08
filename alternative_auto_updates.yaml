@@ -22,14 +22,15 @@ blueprint:
     min_version: "2023.6.0"
   input:
     update_entity:
-      name: Update entity
-      description: The update entity that should be controlled
+      name: Update entities
+      description: The update entities that should be controlled
       selector:
         entity:
           filter:
             domain: update
             # This is currently being marked as incorrect due to a bug in the extention https://github.com/keesschollaart81/vscode-home-assistant/pull/2874
             supported_features: [update.UpdateEntityFeature.SPECIFIC_VERSION]
+          multiple: true
     pre_update_action:
       name: Actions that should run before updating
       description: Add in any optional actions that would run before updating.
