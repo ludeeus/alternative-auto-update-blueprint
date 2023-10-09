@@ -55,6 +55,7 @@ variables:
   should_update: >-
     {% set cv = version(state_attr(trigger.to_state.entity_id, 'installed_version')) %}
     {% set lv = version(state_attr(trigger.to_state.entity_id, 'latest_version')) %}
+    {% set lvf = version(state_attr(trigger.from_state.entity_id, 'latest_version')) %}
     {{
       (
         (
@@ -76,11 +77,16 @@ variables:
           cv.major == lv.major
           and
           (
-            lv.minor > version(cv.minor | int + 1) 
-            or lv.minor == cv.minor
+            (
+              lv.minor > version(cv.minor | int + 1)
+              and lvf.minor == version(cv.minor | int + 1)
+            ) 
+            or (
+              lv.minor == cv.minor 
+              and lv.patch > cv.patch
+            )
           )
         )
-        and lv.patch > cv.patch 
       )
     }}
 
