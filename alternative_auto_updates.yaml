@@ -106,6 +106,8 @@ action:
       value_template: "{{  should_update }}"
     then:
       - service: update.install
+        target:
+          entity_id: "{{trigger.to_state.entity_id}}"
         data:
-          backup: "{{preform_backup}}"
+          backup: "{{preform_backup | default(true)}}"
           version: "{{trigger.from_state.attributes.latest_version}}"
