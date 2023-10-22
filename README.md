@@ -5,7 +5,7 @@
 This will automatically update the target update entity.
 
 But it will not do the latest and greatest.
-Instead it will install the latest patch version when a new minor version is realeased.
+Instead it will install the latest patch version when a new minor version is released.
 When this trigger on a version change that does not result in an update, the update will be hidden so you do not see a notification for it in the UI.
 
 
