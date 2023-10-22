@@ -17,8 +17,31 @@ There are some exceptions:
 
 Note that this will only work for update entities that supports installing a spesific version.
 
+## Examples
 
-### Import directly in Home Assistant
+### New minor version released
+
+If you are currently running `2023.1.5`, when `2023.2.0` -> `2023.2.99` are released, nothing will happen.
+
+When `2023.3.0` is released, it will install the latest patch of the previous minor version (`2023.2.99` in this example).
+
+
+### New patch
+
+If you are currently running `2023.1.5`, if `2023.1.6` is released (newer patch on the same minor version), this will be installed.
+
+## Beta versions
+
+If you are running `2023.1.5` and `2023.2.0b0` is released, this is installed.
+If you are running `2023.1.0b0` and `2023.2.0` is released, this is installed.
+
+## Dev versions
+
+If you are running `2023.1.5` and `2023.2.0dev0` is released, this is installed.
+If you are running `2023.1.0dev0` and `2023.2.0` is released, this is installed.
+
+
+## Import directly in Home Assistant
 
 [Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2Fludeeus%2Falternative-auto-update-blueprint%2Fmain%2Falternative_auto_updates.yaml)
 
@@ -28,7 +51,7 @@ Note that this will only work for update entities that supports installing a spe
 🤫
 </summary>
 
-### Download with HACS
+## Download with HACS
 
 [Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/redirect/hacs_repository/?owner=ludeeus&repository=alternative-auto-update-blueprint&category=blueprint)
 
