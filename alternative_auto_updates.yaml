@@ -53,9 +53,9 @@ trigger:
 
 variables:
   should_update: >-
-    {% set cv = version(state_attr(trigger.to_state.entity_id, 'installed_version')) %}
-    {% set lv = version(state_attr(trigger.to_state.entity_id, 'latest_version')) %}
-    {% set lvf = version(state_attr(trigger.from_state.entity_id, 'latest_version')) %}
+    {% set cv = version(trigger.to_state.attributes.installed_version) %}
+    {% set lv = version(trigger.to_state.attributes.latest_version) %}
+    {% set lvf = version(trigger.from_state.attributes.latest_version) %}
     {{
       (
         (
@@ -90,9 +90,9 @@ variables:
       )
     }}
   should_update_previous: >-
-    {% set cv = version(state_attr(trigger.to_state.entity_id, 'installed_version')) %}
-    {% set lv = version(state_attr(trigger.to_state.entity_id, 'latest_version')) %}
-    {% set lvf = version(state_attr(trigger.from_state.entity_id, 'latest_version')) %}
+    {% set cv = version(trigger.to_state.attributes.installed_version) %}
+    {% set lv = version(trigger.to_state.attributes.latest_version) %}
+    {% set lvf = version(trigger.from_state.attributes.latest_version) %}
     {{
       (
         version(int(cv.major) + 1) == int(lv.major)
